@@ -1,13 +1,141 @@
-Version: 1.0
+---
+title: "assessmentpart123.rmd"
+author: "Karan"
+date: "29/08/2021"
+output: html_document
+---
+```{r}
+library(rmarkdown)
+```
 
-RestoreWorkspace: Default
-SaveWorkspace: Default
-AlwaysSaveHistory: Default
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
-EnableCodeIndexing: Yes
-UseSpacesForTab: Yes
-NumSpacesForTab: 2
-Encoding: UTF-8
+## rmarkdown editing 
+*Workflow R Markdown is a format for writing reproducible, dynamic reports with R. Use it to. embed R code and results into slideshows, pdfs, html documents, Word files and more*
 
-RnwWeave: Sweave
-LaTeX: pdfLaTeX
+##karan's page 
+image: ! [](C:\Users\karan\Downloads/sydney.jpg)
+
+
+data<-5
+data_text<-“5”
+fastfood<-readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-09-04/fastfood_calories.csv')
+
+library(tidyverse)
+library(skimr)
+library(janitor)
+
+data<-read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-09-04/fastfood_calories.csv")
+
+data%>%head(10)
+knitr::kable(head(fastfood[, 1:5]),"pipe")
+
+fastfood%>% filter(calories>1000)
+
+```{r}
+dont_eat_this=fastfood[fastfood$total_fat>40 & fastfood$total_carb>80, ]
+dont_eat_this
+
+```
+
+
+```{r}
+library(skimr)
+skim(fastfood)
+
+```
+
+```{r}
+table(fastfood$restaurant)
+
+```
+
+```{r}
+library(dplyr)
+fastfood%>% 
+  group_by(restaurant) %>% 
+  
+  summarize(avg = mean(calories))
+```
+
+
+```{r}
+library(dplyr)
+fastfood=fastfood%>% 
+  group_by(restaurant) %>% 
+  mutate(average_calories = mean(calories))
+fastfood
+
+```
+
+
+```{r}
+library(ggplot2)
+barplot(tot_fat$Total_fat,names.arg=tot_fat$restaurant,xlab="Restaurant",ylab="Total_fat",las=2)
+
+```
+
+
+Visualization of data allows companies to obtain insight into their huge volumes of data. It helps you to discover new data patterns and errors
+
+```{r}
+fastfood=fastfood%>% 
+  group_by(restaurant) %>% 
+  mutate(max_total_fat = max(total_fat))
+fastfood
+
+```
+```{r}
+str(fastfood)
+```
+```{r}
+fastfood$restaurant= as.factor(fastfood$restaurant)
+fastfood$salad = as.factor(fastfood$salad)
+```
+
+
+```{r}
+fastfood$calories_type=cut_number(fastfood$calories,n=3,c("low","med","high"))
+
+```
+
+
+```{r}
+library(ggplot2)
+library(ggpubr)
+p=ggscatter(fastfood, x = "restaurant", y = "calories", color = "calories_type",
+   palette = c("#0000FF", "#800080", "#C0C0C0"))
+p +theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+```
+```{r}
+fastfood$trans_fat_percent= fastfood$trans_fat/fastfood$total_fat
+```
+
+```{r}
+p=ggscatter(fastfood, x = "restaurant", y = "trans_fat",
+   palette = c("#808000", "#00FF00", "#008000"))
+p +theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
+
+```{r}
+avg_fat=fastfood%>% 
+  group_by(restaurant) %>% 
+  
+  summarize(Total_fat = mean(total_fat))
+avg_fat
+
+```
+```{r}
+library(ggplot2)
+barplot(avg_fat$Total_fat,names.arg=avg_fat$restaurant,xlab="Restaurant",ylab="Total_fat",las=3)
+```
+
+
+
+
+
+
