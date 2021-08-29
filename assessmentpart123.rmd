@@ -1,0 +1,19 @@
+---
+title: "Assessment1part123.rmd"
+author: "Karan"
+date: "29/08/2021"
+output: html_document
+---
+```{r}
+library(rmarkdown)
+```
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## rmarkdown editing 
+*Workflow R Markdown is a format for writing reproducible, dynamic reports with R. Use it to. embed R code and results into slideshows, pdfs, html documents, Word files and more*
+
+##karan's page 
+image: ! [](C:\Users\karan\Downloads/sydney.jpg)
